@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
    leaderboard *lb = new leaderboard(NULL,PATH);
 
 
-   lb->setGeometry(a.screens()[1]->geometry().x(),a.screens()[1]->geometry().y(),1920,1080);
+   lb->setGeometry(a.screens()[0]->geometry().x(),a.screens()[0]->geometry().y(),1920,1080);
         lb->show();
 
 
