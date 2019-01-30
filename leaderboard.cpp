@@ -119,6 +119,12 @@ void leaderboard::convertScores()
 void leaderboard::findBestScores()
 {
 
+    for (auto l:nameLbls)
+        l->hide();
+    for (auto l:scoreLbls)
+        l->hide();
+
+
     if(scores.size()<1)
         return;
 
@@ -160,10 +166,7 @@ void leaderboard::findBestScores()
     int N = qMin(10,(int)scoreOrder.size());
 
 
-    for (auto l:nameLbls)
-        l->hide();
-    for (auto l:scoreLbls)
-        l->hide();
+
 
     for(int n = 0;n<N;n++)
     {
