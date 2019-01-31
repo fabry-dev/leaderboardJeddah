@@ -11,6 +11,8 @@
 #include "qpaintdevice.h"
 #include "qpainter.h"
 #include "qtimer.h"
+#include "QStringList"
+
 struct score {
   QString name;
   int mins;

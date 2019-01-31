@@ -1,5 +1,9 @@
 #include "leaderboard.h"
 
+
+QStringList mongoloTitles = QStringList()<<"DISRUPTER"<<"SCALING GURU"<<"STARTUPER"<<"IDEA GENERATOR";
+
+
 leaderboard::leaderboard(QLabel *parent,QString PATH):QLabel(parent),PATH(PATH)
 {
     resize(1920,1080);
@@ -76,21 +80,23 @@ void leaderboard::reloadScores()
         while(!in.atEnd()) {
             line = in.readLine();
             params = line.split(",");
-            if(params.size()>=3)
+            if(params.size()>=2)
             {
                 teamName = params[0];
                 teamName.remove("\"");
-                mins = params[1].toInt(&test1);
-                secs = params[2].toInt(&test2);
-                total = mins*60+secs;
+                total = params[1].toInt(&test1);
+
+                if(total>3) total = 3;
+                if(total<0) total = 0;
 
 
 
-                if(test1&&test2&&(mins>=0)&&(secs>=0)&&(teamName!=""))
+
+                if(test1&&(teamName!=""))
                 {
                     nuScore.name = teamName;
-                    nuScore.mins = mins;
-                    nuScore.secs = secs;
+                    nuScore.mins = 0;
+                    nuScore.secs = 0;
                     nuScore.total = total;
                     scores.push_back(nuScore);
 
@@ -144,7 +150,7 @@ void leaderboard::findBestScores()
             for(int j = 0;j<scoreOrder.size();j++)
             {
 
-                if(scores[i].total<scores[scoreOrder[j]].total)
+                if(scores[i].total>scores[scoreOrder[j]].total)
                 {
                     scoreOrder.insert(scoreOrder.begin()+j,i);
                     test = true;
@@ -171,9 +177,9 @@ void leaderboard::findBestScores()
     for(int n = 0;n<N;n++)
     {
         int k = scoreOrder[n];
-        qDebug()<<scores[k].name<<scores[k].mins<<scores[k].secs<<scores[k].total;
+        //qDebug()<<scores[k].name<<scores[k].total;
         writeToLabel(nameLbls[n],scores[k].name);
-        writeToLabel(scoreLbls[n],QString::number(scores[k].mins)+"\""+QString("%1").arg(scores[k].secs, 2, 10, QChar('0')));
+        writeToLabel(scoreLbls[n],mongoloTitles[scores[k].total]);
 
 
     }
@@ -224,7 +230,6 @@ void leaderboard::writeToLabel(QLabel *l,QString txt)
         painter.drawText(QRectF((l->width()-W)/2,(l->height()-H)/2,l->width(),l->height()),txt);
 
     }
-
 
     l->setPixmap(myPix);
     l->show();
