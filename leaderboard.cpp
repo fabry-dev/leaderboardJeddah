@@ -1,7 +1,7 @@
 #include "leaderboard.h"
 
 
-QStringList mongoloTitles = QStringList()<<"DISRUPTER"<<"SCALING GURU"<<"STARTUPER"<<"IDEA GENERATOR";
+QStringList mongoloTitles = QStringList()<<"IDEA GENERATOR"<<"STARTUPER"<<"SCALING GURU"<<"DISRUPTER";
 
 
 leaderboard::leaderboard(QLabel *parent,QString PATH):QLabel(parent),PATH(PATH)
